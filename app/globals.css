@@ -20,4 +20,5 @@
 body {
   background-color: var(--color-ivory);
   color: var(--color-navy);
+  overflow-x: clip;
 }
