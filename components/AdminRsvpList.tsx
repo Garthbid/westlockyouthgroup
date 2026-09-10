@@ -1,43 +1,99 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Phone, Users } from "lucide-react";
-import { EVENTS, getRsvpEntries, type RsvpEntry } from "@/lib/events";
-import { fetchRsvps } from "@/lib/supabase";
-import { SparkDoodle, UnderlineDoodle } from "./Doodles";
+import { useCallback, useEffect, useState } from "react";
+import { Lock, Phone, Users } from "lucide-react";
+import { EVENTS, type RsvpEntry } from "@/lib/events";
+import { HeartDoodle, SparkDoodle, UnderlineDoodle } from "./Doodles";
 
-// Placeholder rows so the list has shape before a real backend exists.
-const DEMO_ENTRIES: RsvpEntry[] = [
-  { eventId: "bowling", name: "Emma Sawatzky", phone: "(780) 555-2214", parentName: "Karen Sawatzky", parentPhone: "(780) 555-2215" },
-  { eventId: "bowling", name: "Liam Peters", phone: "(780) 555-8830", parentName: "Dave Peters", parentPhone: "(780) 555-8831" },
-  { eventId: "bowling", name: "Noah Friesen", phone: "(780) 555-4102", parentName: "Angela Friesen", parentPhone: "(780) 555-4103" },
-  { eventId: "fire-faith", name: "Olivia Dyck", phone: "(780) 555-9917", parentName: "Mark Dyck", parentPhone: "(780) 555-9918" },
-  { eventId: "fire-faith", name: "Ava Reimer", phone: "(780) 555-3345", parentName: "Shelly Reimer", parentPhone: "(780) 555-3346" },
-  { eventId: "ice-cream", name: "Jack Wiebe", phone: "(780) 555-7160", parentName: "Tanya Wiebe", parentPhone: "(780) 555-7161" },
-];
+const PIN_SESSION_KEY = "wyg-admin-pin";
 
 export default function AdminRsvpList() {
+  const [pinInput, setPinInput] = useState("");
+  const [unlocked, setUnlocked] = useState(false);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [entries, setEntries] = useState<RsvpEntry[]>([]);
-  const [live, setLive] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
-    fetchRsvps().then((dbEntries) => {
-      if (cancelled) return;
-      if (dbEntries) {
-        setEntries(dbEntries);
-        setLive(true);
-      } else {
-        setEntries([...DEMO_ENTRIES, ...getRsvpEntries()]);
-        setLive(false);
+  const unlock = useCallback(async (pin: string) => {
+    setLoading(true);
+    setError(false);
+    try {
+      const res = await fetch("/api/admin/rsvps", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pin }),
+      });
+      if (!res.ok) {
+        setError(true);
+        sessionStorage.removeItem(PIN_SESSION_KEY);
+        return;
       }
-    });
-    return () => {
-      cancelled = true;
-    };
+      const data = await res.json();
+      setEntries(data.rsvps ?? []);
+      setUnlocked(true);
+      sessionStorage.setItem(PIN_SESSION_KEY, pin);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const allEntries = entries;
+  useEffect(() => {
+    const saved = sessionStorage.getItem(PIN_SESSION_KEY);
+    if (saved) void unlock(saved);
+  }, [unlock]);
+
+  if (!unlocked) {
+    return (
+      <section className="mx-auto w-full max-w-[420px] px-6 pb-24 pt-16 text-center">
+        <div className="mx-auto flex h-[74px] w-[74px] items-center justify-center rounded-full bg-bluepale">
+          <Lock className="h-8 w-8 text-navy" strokeWidth={1.9} />
+        </div>
+        <div className="relative mt-5 inline-block">
+          <h1 className="font-hand text-[38px] font-bold">Leaders Only</h1>
+          <SparkDoodle className="absolute -right-9 top-0 h-7 w-8 text-doodleorange" />
+        </div>
+        <p className="mt-2 text-[14.5px] leading-[1.6] text-navy/70">
+          Enter the admin PIN to see the RSVP lists.
+        </p>
+        <form
+          className="mt-7"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void unlock(pinInput);
+          }}
+        >
+          <input
+            type="password"
+            inputMode="numeric"
+            autoComplete="off"
+            maxLength={8}
+            value={pinInput}
+            onChange={(e) => {
+              setPinInput(e.target.value);
+              setError(false);
+            }}
+            placeholder="• • • •"
+            aria-label="Admin PIN"
+            className="w-full rounded-[16px] border border-navy/15 bg-card px-4 py-4 text-center text-[24px] font-bold tracking-[0.5em] text-navy placeholder:text-navy/30 outline-none transition-all duration-200 focus:border-turquoise focus:ring-2 focus:ring-turquoise/30"
+          />
+          {error && (
+            <p className="mt-3 text-[13.5px] font-bold text-[#d1495b]">
+              Hmm, that&rsquo;s not it — try again.
+            </p>
+          )}
+          <button
+            type="submit"
+            disabled={loading || pinInput.length === 0}
+            className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-peach px-8 py-4 text-[14px] font-bold tracking-[0.08em] text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-none"
+          >
+            {loading ? "CHECKING..." : "UNLOCK"}
+          </button>
+        </form>
+      </section>
+    );
+  }
 
   return (
     <section className="mx-auto w-full max-w-[1080px] px-6 pb-20 pt-10 lg:px-8">
@@ -53,13 +109,11 @@ export default function AdminRsvpList() {
       </div>
       <p className="mt-3 max-w-[520px] text-[14px] leading-[1.6] text-navy/70">
         Everyone who&rsquo;s said they&rsquo;re coming, grouped by event.
-        {live === false &&
-          " (Couldn't reach the database — showing demo data and RSVPs from this device only.)"}
       </p>
 
       <div className="mt-9 flex flex-col gap-8">
         {EVENTS.map((event) => {
-          const entries = allEntries.filter((r) => r.eventId === event.id);
+          const eventEntries = entries.filter((r) => r.eventId === event.id);
           return (
             <div
               key={event.id}
@@ -84,11 +138,11 @@ export default function AdminRsvpList() {
                 </div>
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-mint px-4 py-1.5 text-[12.5px] font-bold text-navy">
                   <Users className="h-3.5 w-3.5" strokeWidth={2.4} />
-                  {entries.length} going
+                  {eventEntries.length} going
                 </span>
               </div>
 
-              {entries.length === 0 ? (
+              {eventEntries.length === 0 ? (
                 <p className="mt-5 rounded-[14px] bg-ivory px-4 py-4 text-center text-[14px] text-navy/60">
                   No RSVPs yet — they&rsquo;ll show up here.
                 </p>
@@ -104,29 +158,24 @@ export default function AdminRsvpList() {
                       </tr>
                     </thead>
                     <tbody>
-                      {entries.map((entry, i) => {
-                        const isDemo = DEMO_ENTRIES.includes(entry);
-                        return (
-                          <tr
-                            key={`${entry.eventId}-${entry.name}-${i}`}
-                            className={`border-t border-navy/10 text-[14.5px] ${
-                              isDemo ? "text-navy/50" : "text-navy"
-                            }`}
-                          >
-                            <td className="py-3 pr-4 font-bold">
-                              {entry.name || "—"}
-                            </td>
-                            <td className="py-3 pr-4">
-                              <span className="inline-flex items-center gap-1.5">
-                                <Phone className="h-3.5 w-3.5 opacity-60" strokeWidth={2} />
-                                {entry.phone || "—"}
-                              </span>
-                            </td>
-                            <td className="py-3 pr-4">{entry.parentName || "—"}</td>
-                            <td className="py-3">{entry.parentPhone || "—"}</td>
-                          </tr>
-                        );
-                      })}
+                      {eventEntries.map((entry, i) => (
+                        <tr
+                          key={`${entry.eventId}-${entry.name}-${i}`}
+                          className="border-t border-navy/10 text-[14.5px] text-navy"
+                        >
+                          <td className="py-3 pr-4 font-bold">
+                            {entry.name || "—"}
+                          </td>
+                          <td className="py-3 pr-4">
+                            <span className="inline-flex items-center gap-1.5">
+                              <Phone className="h-3.5 w-3.5 opacity-60" strokeWidth={2} />
+                              {entry.phone || "—"}
+                            </span>
+                          </td>
+                          <td className="py-3 pr-4">{entry.parentName || "—"}</td>
+                          <td className="py-3">{entry.parentPhone || "—"}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -135,6 +184,10 @@ export default function AdminRsvpList() {
           );
         })}
       </div>
+
+      <p className="mt-8 flex items-center gap-2 font-script text-[19px] font-semibold text-navy/70">
+        good work, leader <HeartDoodle className="h-4 w-4" strokeWidth={3.2} />
+      </p>
     </section>
   );
 }
