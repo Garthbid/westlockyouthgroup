@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import RsvpForm from "@/components/RsvpForm";
@@ -12,7 +13,9 @@ export default function RsvpPage() {
   return (
     <main>
       <Header />
-      <RsvpForm />
+      <Suspense fallback={null}>
+        <RsvpForm />
+      </Suspense>
       <Footer />
     </main>
   );

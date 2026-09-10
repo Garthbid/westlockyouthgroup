@@ -50,7 +50,7 @@ export default function NextEventCard() {
 
         {/* CTA */}
         <Link
-          href="/rsvp"
+          href="/rsvp?event=bowling"
           className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-peach px-10 py-[18px] text-[14px] font-bold tracking-[0.08em] text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md lg:self-center"
         >
           RSVP NOW <ArrowRight className="h-4 w-4" strokeWidth={2.4} />

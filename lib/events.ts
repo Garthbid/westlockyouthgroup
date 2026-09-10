@@ -8,8 +8,7 @@ export type EventItem = {
   title: string;
   time: string;
   location: string;
-  cta: string;
-  ctaBg: string;
+  dateLabel: string;
 };
 
 export const EVENTS: EventItem[] = [
@@ -23,8 +22,7 @@ export const EVENTS: EventItem[] = [
     title: "Bowling Night",
     time: "7:00 PM",
     location: "Westlock",
-    cta: "RSVP",
-    ctaBg: "bg-pinkpale",
+    dateLabel: "Friday, April 25",
   },
   {
     id: "fire-faith",
@@ -36,8 +34,7 @@ export const EVENTS: EventItem[] = [
     title: "Fire & Faith Night",
     time: "7:00 PM",
     location: "Westlock",
-    cta: "I'M IN!",
-    ctaBg: "bg-mint",
+    dateLabel: "Saturday, May 10",
   },
   {
     id: "ice-cream",
@@ -49,7 +46,32 @@ export const EVENTS: EventItem[] = [
     title: "Ice Cream & Games",
     time: "7:00 PM",
     location: "Location TBA",
-    cta: "DETAILS",
-    ctaBg: "bg-bluepale",
+    dateLabel: "Saturday, May 24",
   },
 ];
+
+export const RSVP_STORAGE_KEY = "wyg-rsvps";
+
+export function getRsvps(): string[] {
+  try {
+    const raw = window.localStorage.getItem(RSVP_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export function addRsvp(eventId: string) {
+  try {
+    const current = getRsvps();
+    if (!current.includes(eventId)) {
+      window.localStorage.setItem(
+        RSVP_STORAGE_KEY,
+        JSON.stringify([...current, eventId]),
+      );
+    }
+  } catch {
+    // storage unavailable — visual prototype, ignore
+  }
+}

@@ -1,8 +1,28 @@
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { EventItem } from "@/lib/events";
+import { Check } from "lucide-react";
+import { getRsvps, type EventItem } from "@/lib/events";
 
 export default function EventCard({ event }: { event: EventItem }) {
+  const [isIn, setIsIn] = useState(false);
+
+  const refresh = useCallback(() => {
+    setIsIn(getRsvps().includes(event.id));
+  }, [event.id]);
+
+  useEffect(() => {
+    refresh();
+    window.addEventListener("focus", refresh);
+    window.addEventListener("pageshow", refresh);
+    return () => {
+      window.removeEventListener("focus", refresh);
+      window.removeEventListener("pageshow", refresh);
+    };
+  }, [refresh]);
+
   return (
     <article className="overflow-hidden rounded-[20px] bg-card shadow-[0_10px_26px_-14px_rgba(34,48,60,0.2)] ring-1 ring-navy/5 transition-transform duration-200 hover:-translate-y-1">
       <div className="relative m-2.5 h-[155px] overflow-hidden rounded-[14px] sm:h-[170px]">
@@ -27,12 +47,26 @@ export default function EventCard({ event }: { event: EventItem }) {
         <p className="mt-1 text-[14.5px] text-navy/80">
           {event.time}&ensp;|&ensp;{event.location}
         </p>
-        <Link
-          href="/rsvp"
-          className={`mt-3.5 inline-block rounded-full ${event.ctaBg} px-6 py-2.5 text-[13px] font-bold tracking-[0.06em] text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow`}
-        >
-          {event.cta}
-        </Link>
+        <div className="mt-3.5 flex items-center gap-2.5">
+          <Link
+            href="#"
+            className="inline-block rounded-full bg-bluepale px-5 py-2.5 text-[13px] font-bold tracking-[0.06em] text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow"
+          >
+            DETAILS
+          </Link>
+          {isIn ? (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-mint px-5 py-2.5 text-[13px] font-bold tracking-[0.06em] text-navy">
+              <Check className="h-3.5 w-3.5" strokeWidth={3} /> I&rsquo;M IN!
+            </span>
+          ) : (
+            <Link
+              href={`/rsvp?event=${event.id}`}
+              className="inline-block rounded-full bg-pinkpale px-5 py-2.5 text-[13px] font-bold tracking-[0.06em] text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow"
+            >
+              RSVP
+            </Link>
+          )}
+        </div>
       </div>
     </article>
   );
