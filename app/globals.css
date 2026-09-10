@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #faf6f0;
+  --color-card: #fffdf9;
+  --color-navy: #22303c;
+  --color-bluepale: #cfe3f6;
+  --color-mint: #c8e3cd;
+  --color-pinkpale: #f5d0da;
+  --color-yellowpale: #fbdf9d;
+  --color-peach: #f5b49e;
+  --color-turquoise: #4fc6bd;
+  --color-doodleorange: #f79b4b;
+
+  --font-hand: "Shantell Sans", "Shantell Sans Fallback", cursive;
+  --font-script: "Caveat", "Caveat Fallback", cursive;
+  --font-sans: "DM Sans", "DM Sans Fallback", sans-serif;
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-navy);
+}
