@@ -113,6 +113,15 @@ export const EVENTS: EventItem[] = [
 ];
 
 export const RSVP_STORAGE_KEY = "wyg-rsvps";
+export const RSVP_ENTRIES_KEY = "wyg-rsvp-entries";
+
+export type RsvpEntry = {
+  eventId: string;
+  name: string;
+  phone: string;
+  parentName: string;
+  parentPhone: string;
+};
 
 export function getRsvps(): string[] {
   try {
@@ -124,15 +133,29 @@ export function getRsvps(): string[] {
   }
 }
 
-export function addRsvp(eventId: string) {
+export function getRsvpEntries(): RsvpEntry[] {
   try {
-    const current = getRsvps();
-    if (!current.includes(eventId)) {
+    const raw = window.localStorage.getItem(RSVP_ENTRIES_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export function addRsvp(entry: RsvpEntry) {
+  try {
+    const ids = getRsvps();
+    if (!ids.includes(entry.eventId)) {
       window.localStorage.setItem(
         RSVP_STORAGE_KEY,
-        JSON.stringify([...current, eventId]),
+        JSON.stringify([...ids, entry.eventId]),
       );
     }
+    window.localStorage.setItem(
+      RSVP_ENTRIES_KEY,
+      JSON.stringify([...getRsvpEntries(), entry]),
+    );
   } catch {
     // storage unavailable — visual prototype, ignore
   }

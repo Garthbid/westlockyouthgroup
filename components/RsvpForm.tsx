@@ -24,8 +24,15 @@ export default function RsvpForm() {
   const event = EVENTS.find((e) => e.id === searchParams.get("event"));
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = () => {
-    if (event) addRsvp(event.id);
+  const handleSubmit = (form: HTMLFormElement) => {
+    const data = new FormData(form);
+    addRsvp({
+      eventId: event?.id ?? "general",
+      name: String(data.get("name") ?? "").trim(),
+      phone: String(data.get("phone") ?? "").trim(),
+      parentName: String(data.get("parentName") ?? "").trim(),
+      parentPhone: String(data.get("parentPhone") ?? "").trim(),
+    });
     setSubmitted(true);
   };
 
@@ -78,7 +85,7 @@ export default function RsvpForm() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              handleSubmit();
+              handleSubmit(e.currentTarget);
             }}
           >
             <div className="flex flex-col gap-5">
