@@ -20,7 +20,7 @@ export default function NextEventCard() {
             <h2 className="font-hand text-[36px] font-bold leading-tight sm:text-[42px]">
               Bowling Night
             </h2>
-            <SparkDoodle className="absolute -right-10 -top-1 h-7 w-8 text-doodleorange" />
+            <SparkDoodle className="absolute -right-8 -top-1 h-7 w-8 text-doodleorange sm:-right-10" />
           </div>
           <p className="mt-2 text-[16px] font-bold">
             Friday, April 25&ensp;|&ensp;7:00 PM

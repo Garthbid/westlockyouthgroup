@@ -27,7 +27,7 @@ export default function PlaceHere() {
               You&rsquo;ve got
               <br />a place here.
             </h2>
-            <SparkDoodle className="absolute -right-12 top-1 h-9 w-10 rotate-[10deg] text-navy" />
+            <SparkDoodle className="absolute -right-6 top-1 h-9 w-10 rotate-[10deg] text-navy sm:-right-12" />
           </div>
           <p className="mt-6 max-w-[400px] text-[16px] leading-[1.65] text-navy/90">
             Westlock Youth is a place to be yourself, make real friendships,

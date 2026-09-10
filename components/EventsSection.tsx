@@ -12,7 +12,7 @@ export default function EventsSection() {
           <h2 className="font-hand text-[35px] font-bold tracking-wide sm:text-[40px]">
             UPCOMING EVENTS
           </h2>
-          <SparkDoodle className="absolute -right-9 top-0 h-7 w-8 text-turquoise" />
+          <SparkDoodle className="absolute -right-4 top-0 h-7 w-8 text-turquoise sm:-right-9" />
         </div>
         <Link
           href="#events"

@@ -54,7 +54,7 @@ export default function Hero() {
 
           {/* grades blob */}
           <div
-            className="absolute -right-3 bottom-[168px] flex h-[86px] w-[140px] rotate-[-7deg] items-center justify-center bg-mint text-navy sm:right-0 sm:bottom-[70px] sm:h-[130px] sm:w-[216px]"
+            className="absolute right-0 bottom-[168px] flex h-[86px] w-[140px] rotate-[-7deg] items-center justify-center bg-mint text-navy sm:right-0 sm:bottom-[70px] sm:h-[130px] sm:w-[216px]"
             style={{
               borderRadius: "48% 52% 55% 45% / 55% 60% 40% 45%",
             }}
