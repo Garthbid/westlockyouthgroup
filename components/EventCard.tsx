@@ -49,7 +49,7 @@ export default function EventCard({ event }: { event: EventItem }) {
         </p>
         <div className="mt-3.5 flex items-center gap-2.5">
           <Link
-            href="#"
+            href={`/events/${event.id}`}
             className="inline-block rounded-full bg-bluepale px-5 py-2.5 text-[13px] font-bold tracking-[0.06em] text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow"
           >
             DETAILS
