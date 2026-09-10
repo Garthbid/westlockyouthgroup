@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Phone, Users } from "lucide-react";
 import { EVENTS, getRsvpEntries, type RsvpEntry } from "@/lib/events";
+import { fetchRsvps } from "@/lib/supabase";
 import { SparkDoodle, UnderlineDoodle } from "./Doodles";
 
 // Placeholder rows so the list has shape before a real backend exists.
@@ -16,13 +17,27 @@ const DEMO_ENTRIES: RsvpEntry[] = [
 ];
 
 export default function AdminRsvpList() {
-  const [localEntries, setLocalEntries] = useState<RsvpEntry[]>([]);
+  const [entries, setEntries] = useState<RsvpEntry[]>([]);
+  const [live, setLive] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setLocalEntries(getRsvpEntries());
+    let cancelled = false;
+    fetchRsvps().then((dbEntries) => {
+      if (cancelled) return;
+      if (dbEntries) {
+        setEntries(dbEntries);
+        setLive(true);
+      } else {
+        setEntries([...DEMO_ENTRIES, ...getRsvpEntries()]);
+        setLive(false);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  const allEntries = [...DEMO_ENTRIES, ...localEntries];
+  const allEntries = entries;
 
   return (
     <section className="mx-auto w-full max-w-[1080px] px-6 pb-20 pt-10 lg:px-8">
@@ -38,8 +53,8 @@ export default function AdminRsvpList() {
       </div>
       <p className="mt-3 max-w-[520px] text-[14px] leading-[1.6] text-navy/70">
         Everyone who&rsquo;s said they&rsquo;re coming, grouped by event.
-        Prototype note: submissions are only saved on the device they were
-        made on — the greyed rows are demo data.
+        {live === false &&
+          " (Couldn't reach the database — showing demo data and RSVPs from this device only.)"}
       </p>
 
       <div className="mt-9 flex flex-col gap-8">

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { addRsvp, EVENTS } from "@/lib/events";
+import { saveRsvp } from "@/lib/supabase";
 import {
   HeartDoodle,
   SmileyDoodle,
@@ -26,13 +27,15 @@ export default function RsvpForm() {
 
   const handleSubmit = (form: HTMLFormElement) => {
     const data = new FormData(form);
-    addRsvp({
+    const entry = {
       eventId: event?.id ?? "general",
       name: String(data.get("name") ?? "").trim(),
       phone: String(data.get("phone") ?? "").trim(),
       parentName: String(data.get("parentName") ?? "").trim(),
       parentPhone: String(data.get("parentPhone") ?? "").trim(),
-    });
+    };
+    addRsvp(entry);
+    void saveRsvp(entry);
     setSubmitted(true);
   };
 
