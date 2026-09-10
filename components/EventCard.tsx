@@ -28,7 +28,7 @@ export default function EventCard({ event }: { event: EventItem }) {
           {event.time}&ensp;|&ensp;{event.location}
         </p>
         <Link
-          href="#rsvp"
+          href="/rsvp"
           className={`mt-3.5 inline-block rounded-full ${event.ctaBg} px-6 py-2.5 text-[13px] font-bold tracking-[0.06em] text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow`}
         >
           {event.cta}
