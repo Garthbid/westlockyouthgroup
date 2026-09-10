@@ -15,9 +15,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const event = EVENTS.find((e) => e.id === id);
   if (!event) return {};
+  const description = `${event.title} — ${event.dateLabel} at ${event.time}, ${event.location}. ${event.tagline}. A Westlock Youth Group event for grades 7–12; everyone's welcome.`;
   return {
-    title: `${event.title} — Westlock Youth Group`,
-    description: `${event.dateLabel} | ${event.time} — ${event.tagline}`,
+    title: event.title,
+    description,
+    openGraph: {
+      title: `${event.title} — Westlock Youth Group`,
+      description,
+      images: [{ url: event.image, alt: event.alt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${event.title} — Westlock Youth Group`,
+      description,
+      images: [event.image],
+    },
   };
 }
 

@@ -5,8 +5,9 @@ import RsvpForm from "@/components/RsvpForm";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "RSVP — Westlock Youth Group",
-  description: "Let us know you're coming — we'll save you a spot!",
+  title: "RSVP",
+  description:
+    "Coming to a Westlock Youth Group event? Fill out a quick RSVP and we'll save you a spot — it only takes a minute.",
 };
 
 export default function RsvpPage() {

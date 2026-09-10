@@ -4,7 +4,7 @@ import AdminRsvpList from "@/components/AdminRsvpList";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Admin — Westlock Youth Group",
+  title: "Admin",
   description: "RSVP lists for upcoming events.",
   robots: { index: false, follow: false },
 };
