@@ -14,10 +14,10 @@ import {
 } from "./Doodles";
 
 const FIELDS = [
-  { id: "name", label: "Your Name", placeholder: "First and last name", type: "text" },
-  { id: "phone", label: "Your Phone Number", placeholder: "(780) 555-1234", type: "tel" },
-  { id: "parentName", label: "Parent's Name", placeholder: "Mom or dad's name", type: "text" },
-  { id: "parentPhone", label: "Parent's Phone Number", placeholder: "(780) 555-5678", type: "tel" },
+  { id: "name", label: "Your Name", placeholder: "First and last name", type: "text", required: true },
+  { id: "phone", label: "Your Phone Number (optional)", placeholder: "(780) 555-1234", type: "tel", required: false },
+  { id: "parentName", label: "Parent's Name", placeholder: "Mom or dad's name", type: "text", required: true },
+  { id: "parentPhone", label: "Parent's Phone Number", placeholder: "(780) 555-5678", type: "tel", required: true },
 ];
 
 export default function RsvpForm() {
@@ -28,11 +28,13 @@ export default function RsvpForm() {
   const handleSubmit = (form: HTMLFormElement) => {
     const data = new FormData(form);
     const entry = {
+      id: crypto.randomUUID(),
       eventId: event?.id ?? "general",
       name: String(data.get("name") ?? "").trim(),
       phone: String(data.get("phone") ?? "").trim(),
       parentName: String(data.get("parentName") ?? "").trim(),
       parentPhone: String(data.get("parentPhone") ?? "").trim(),
+      allergies: String(data.get("allergies") ?? "").trim(),
     };
     addRsvp(entry);
     void saveRsvp(entry);
@@ -104,11 +106,27 @@ export default function RsvpForm() {
                     id={field.id}
                     name={field.id}
                     type={field.type}
+                    required={field.required}
                     placeholder={field.placeholder}
                     className="w-full rounded-[14px] border border-navy/15 bg-ivory/60 px-4 py-3 text-[15px] text-navy placeholder:text-navy/40 outline-none transition-all duration-200 focus:border-turquoise focus:ring-2 focus:ring-turquoise/30"
                   />
                 </div>
               ))}
+              <div>
+                <label
+                  htmlFor="allergies"
+                  className="mb-1.5 block text-[13px] font-bold tracking-[0.02em]"
+                >
+                  Allergies or Health Conditions (optional)
+                </label>
+                <textarea
+                  id="allergies"
+                  name="allergies"
+                  rows={3}
+                  placeholder="Anything we should know about — food allergies, medical conditions, etc."
+                  className="w-full resize-none rounded-[14px] border border-navy/15 bg-ivory/60 px-4 py-3 text-[15px] text-navy placeholder:text-navy/40 outline-none transition-all duration-200 focus:border-turquoise focus:ring-2 focus:ring-turquoise/30"
+                />
+              </div>
             </div>
 
             <button

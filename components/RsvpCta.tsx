@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { getRsvps } from "@/lib/events";
+import CancelRsvpButton from "./CancelRsvpButton";
 
 export default function RsvpCta({ eventId }: { eventId: string }) {
   const [isIn, setIsIn] = useState(false);
@@ -24,9 +25,12 @@ export default function RsvpCta({ eventId }: { eventId: string }) {
 
   if (isIn) {
     return (
-      <div className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-mint px-7 py-4 text-[14px] font-bold tracking-[0.08em] text-navy">
-        <Check className="h-4 w-4" strokeWidth={3} /> YOU&rsquo;RE IN — SEE YOU
-        THERE!
+      <div className="flex flex-col items-center gap-2.5">
+        <div className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-mint px-7 py-4 text-[14px] font-bold tracking-[0.08em] text-navy">
+          <Check className="h-4 w-4" strokeWidth={3} /> YOU&rsquo;RE IN — SEE
+          YOU THERE!
+        </div>
+        <CancelRsvpButton eventId={eventId} onCancelled={refresh} />
       </div>
     );
   }

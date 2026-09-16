@@ -154,7 +154,12 @@ export default function AdminRsvpList() {
                         <th className="pb-2.5 pr-4 font-bold">NAME</th>
                         <th className="pb-2.5 pr-4 font-bold">PHONE</th>
                         <th className="pb-2.5 pr-4 font-bold">PARENT</th>
-                        <th className="pb-2.5 font-bold">PARENT&rsquo;S PHONE</th>
+                        <th className="pb-2.5 pr-4 font-bold">
+                          PARENT&rsquo;S PHONE
+                        </th>
+                        <th className="pb-2.5 font-bold">
+                          ALLERGIES / HEALTH
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -173,7 +178,8 @@ export default function AdminRsvpList() {
                             </span>
                           </td>
                           <td className="py-3 pr-4">{entry.parentName || "—"}</td>
-                          <td className="py-3">{entry.parentPhone || "—"}</td>
+                          <td className="py-3 pr-4">{entry.parentPhone || "—"}</td>
+                          <td className="py-3">{entry.allergies || "—"}</td>
                         </tr>
                       ))}
                     </tbody>

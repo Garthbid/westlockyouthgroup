@@ -25,7 +25,7 @@ export const EVENTS: EventItem[] = [
     month: "APR",
     day: "25",
     badgeBg: "bg-pinkpale",
-    title: "Bowling Night",
+    title: "Youth Bowling Night",
     time: "7:00 PM",
     location: "Westlock",
     dateLabel: "Friday, April 25",
@@ -50,63 +50,63 @@ export const EVENTS: EventItem[] = [
       "Drop-off and pickup both happen at Westlock Alliance Church. Leaders drive between venues.",
   },
   {
-    id: "fire-faith",
-    image: "/images/campfire.jpg",
-    alt: "Teenagers sitting around a campfire at dusk",
+    id: "board-games",
+    image: "/images/boardgames.jpg",
+    alt: "Board game pieces and dice on a table",
     month: "MAY",
     day: "10",
     badgeBg: "bg-mint",
-    title: "Fire & Faith Night",
+    title: "Board Games & Bible Quizzes",
     time: "7:00 PM",
     location: "Westlock",
     dateLabel: "Saturday, May 10",
-    tagline: "campfire, questions & s'mores",
+    tagline: "dice, laughs & trivia showdowns",
     description: [
-      "Our favourite kind of night — a big bonfire, honest conversations about faith, and worship under the stars. It's chill, it's real, and there's zero pressure to have it all figured out.",
-      "Bring your questions, bring a blanket, and definitely bring your appetite. The s'mores supply is, as always, unlimited.",
+      "Tables full of board games, snacks within arm's reach, and Bible quiz showdowns where knowing your Old Testament kings can actually win you bragging rights. Competitive? Great. Just here to hang out? Also great.",
+      "Never opened a Bible before? Zero problem — teams are mixed so everyone's got a shot, and half the fun is the wild guesses anyway.",
     ],
     plan: [
-      { time: "7:00", item: "Fire's lit — hangout & yard games" },
-      { time: "7:45", item: "Worship + a short honest talk" },
-      { time: "8:15", item: "S'mores & fireside conversations" },
+      { time: "7:00", item: "Doors open — grab a game & a snack" },
+      { time: "7:45", item: "Bible quiz tournament kicks off" },
+      { time: "8:30", item: "Free play — rematches & new games" },
       { time: "9:30", item: "Parent pickup" },
     ],
     bring: [
-      "A hoodie or blanket",
-      "A lawn chair if you have one",
+      "Your favourite board game if you have one",
       "A friend — everyone's welcome",
+      "Your best trivia face",
     ],
     cost: "Free",
     parentNote:
-      "The fire is fully supervised and we wrap up at 9:30 sharp. Address is texted to RSVPs the day before.",
+      "Drop-off and pickup both happen at the church. Snacks are provided — let us know about allergies when you RSVP.",
   },
   {
-    id: "ice-cream",
-    image: "/images/icecream.jpg",
-    alt: "Ice cream cone against a sunny yellow background",
+    id: "movie-night",
+    image: "/images/movie.jpg",
+    alt: "Popcorn and a movie screen glowing in a dark room",
     month: "MAY",
     day: "24",
     badgeBg: "bg-mint",
-    title: "Ice Cream & Games",
+    title: "Youth Movie Night",
     time: "7:00 PM",
     location: "Location TBA",
     dateLabel: "Saturday, May 24",
-    tagline: "sprinkles & silly games",
+    tagline: "popcorn, blankets & the big screen",
     description: [
-      "Ice cream, ridiculous lawn games, and a whole lot of sprinkles. This is the easiest possible night to bring a friend who's never been to youth group before.",
+      "Big screen, big speakers, and an unreasonable amount of popcorn. We pick a movie everyone can enjoy, pile up the blankets and beanbags, and settle in for the night.",
       "The location gets announced the week of — keep an eye on our socials or RSVP and we'll text you directly.",
     ],
     plan: [
-      { time: "7:00", item: "Games kick off (bring your A-game)" },
-      { time: "8:00", item: "Ice cream bar opens — first cone's on us" },
-      { time: "9:00", item: "Parent pickup" },
+      { time: "7:00", item: "Doors open — claim your spot" },
+      { time: "7:20", item: "Popcorn's ready, movie starts" },
+      { time: "9:30", item: "Parent pickup" },
     ],
     bring: [
-      "$5 if you want extra scoops",
-      "Sunscreen for the early evening sun",
+      "A blanket or pillow to get comfy",
+      "$5 if you want extra snacks",
       "A friend or two!",
     ],
-    cost: "Free — first cone's on us",
+    cost: "Free — popcorn's on us",
     parentNote:
       "Location is announced the week of the event. RSVP and we'll text you the address and pickup details.",
   },
@@ -116,11 +116,13 @@ export const RSVP_STORAGE_KEY = "wyg-rsvps";
 export const RSVP_ENTRIES_KEY = "wyg-rsvp-entries";
 
 export type RsvpEntry = {
+  id?: string;
   eventId: string;
   name: string;
   phone: string;
   parentName: string;
   parentPhone: string;
+  allergies?: string;
 };
 
 export function getRsvps(): string[] {
@@ -158,5 +160,23 @@ export function addRsvp(entry: RsvpEntry) {
     );
   } catch {
     // storage unavailable — visual prototype, ignore
+  }
+}
+
+export function removeRsvp(eventId: string): RsvpEntry[] {
+  try {
+    const entries = getRsvpEntries();
+    const removed = entries.filter((e) => e.eventId === eventId);
+    window.localStorage.setItem(
+      RSVP_STORAGE_KEY,
+      JSON.stringify(getRsvps().filter((id) => id !== eventId)),
+    );
+    window.localStorage.setItem(
+      RSVP_ENTRIES_KEY,
+      JSON.stringify(entries.filter((e) => e.eventId !== eventId)),
+    );
+    return removed;
+  } catch {
+    return [];
   }
 }

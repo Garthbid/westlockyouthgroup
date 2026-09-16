@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { getRsvps, type EventItem } from "@/lib/events";
+import CancelRsvpButton from "./CancelRsvpButton";
 
 export default function EventCard({ event }: { event: EventItem }) {
   const [isIn, setIsIn] = useState(false);
@@ -55,8 +56,11 @@ export default function EventCard({ event }: { event: EventItem }) {
             DETAILS
           </Link>
           {isIn ? (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-mint px-5 py-2.5 text-[13px] font-bold tracking-[0.06em] text-navy">
-              <Check className="h-3.5 w-3.5" strokeWidth={3} /> I&rsquo;M IN!
+            <span className="inline-flex flex-col items-start gap-1">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-mint px-5 py-2.5 text-[13px] font-bold tracking-[0.06em] text-navy">
+                <Check className="h-3.5 w-3.5" strokeWidth={3} /> I&rsquo;M IN!
+              </span>
+              <CancelRsvpButton eventId={event.id} onCancelled={refresh} />
             </span>
           ) : (
             <Link

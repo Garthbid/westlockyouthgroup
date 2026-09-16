@@ -40,12 +40,24 @@ export default function Footer() {
         <HeartDoodle className="ml-6 mt-0.5 h-3.5 w-3.5 rotate-[-6deg]" strokeWidth={3.5} />
       </div>
 
-      <div className="flex flex-1 items-center gap-5 px-4 sm:px-10">
-        <span className="hidden h-px flex-1 bg-navy/20 sm:block" />
-        <p className="text-center text-[11px] font-semibold tracking-[0.2em] text-navy/70">
-          &ldquo;KIND PEOPLE ARE OUR KIND OF PEOPLE.&rdquo;
+      <div className="flex flex-1 flex-col items-center gap-3 px-4 sm:px-10">
+        <div className="flex w-full items-center gap-5">
+          <span className="hidden h-px flex-1 bg-navy/20 sm:block" />
+          <p className="text-center text-[11px] font-semibold tracking-[0.2em] text-navy/70">
+            &ldquo;KIND PEOPLE ARE OUR KIND OF PEOPLE.&rdquo;
+          </p>
+          <span className="hidden h-px flex-1 bg-navy/20 sm:block" />
+        </div>
+        <p className="text-center text-[13px] text-navy/80">
+          Call Justin @{" "}
+          <a
+            href="tel:+17803076510"
+            className="font-bold underline underline-offset-2 transition-colors duration-200 hover:text-navy"
+          >
+            780-307-6510
+          </a>{" "}
+          for any questions about the youth group or the website.
         </p>
-        <span className="hidden h-px flex-1 bg-navy/20 sm:block" />
       </div>
 
       <div className="flex items-center gap-4">

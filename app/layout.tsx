@@ -27,11 +27,12 @@ const SITE_DESCRIPTION =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Westlock Youth Group — Real People. Real Friendships.",
-    template: "%s — Westlock Youth Group",
+    default: "The Way Youth Group — Real People. Real Friendships.",
+    template: "%s — The Way Youth Group",
   },
   description: SITE_DESCRIPTION,
   keywords: [
+    "The Way youth group",
     "Westlock youth group",
     "Westlock Alberta teens",
     "church youth group Westlock",
@@ -41,8 +42,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE_URL,
-    siteName: "Westlock Youth Group",
-    title: "Westlock Youth Group — Real People. Real Friendships.",
+    siteName: "The Way Youth Group",
+    title: "The Way Youth Group — Real People. Real Friendships.",
     description: SITE_DESCRIPTION,
     locale: "en_CA",
     images: [
@@ -50,13 +51,13 @@ export const metadata: Metadata = {
         url: "/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Westlock Youth Group — teens arm in arm at sunset. Grades 7–12, you belong here.",
+        alt: "The Way Youth Group — teens arm in arm at sunset. Grades 7–12, you belong here.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Westlock Youth Group — Real People. Real Friendships.",
+    title: "The Way Youth Group — Real People. Real Friendships.",
     description:
       "A youth group in Westlock, Alberta for grades 7–12. Real friendships, real fun — everyone's welcome.",
     images: ["/og.jpg"],

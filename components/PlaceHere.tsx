@@ -30,7 +30,7 @@ export default function PlaceHere() {
             <SparkDoodle className="absolute -right-6 top-1 h-9 w-10 rotate-[10deg] text-navy sm:-right-12" />
           </div>
           <p className="mt-6 max-w-[400px] text-[16px] leading-[1.65] text-navy/90">
-            Westlock Youth is a place to be yourself, make real friendships,
+            The Way Youth Group is a place to be yourself, make real friendships,
             have a ton of fun and explore what it means to follow Jesus
             together. Everyone is welcome &ndash; no matter where you&rsquo;re
             at.

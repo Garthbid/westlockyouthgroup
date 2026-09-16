@@ -18,7 +18,7 @@ export default function NextEventCard() {
           </p>
           <div className="relative mt-0.5 inline-block">
             <h2 className="font-hand text-[36px] font-bold leading-tight sm:text-[42px]">
-              Bowling Night
+              Youth Bowling Night
             </h2>
             <SparkDoodle className="absolute -right-8 -top-1 h-7 w-8 text-doodleorange sm:-right-10" />
           </div>

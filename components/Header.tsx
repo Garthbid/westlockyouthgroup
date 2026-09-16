@@ -24,7 +24,7 @@ export default function Header() {
           <SunDoodle className="h-8 w-8 shrink-0 text-[#f2b84b]" strokeWidth={2.8} />
           <span className="leading-none">
             <span className="block font-hand text-[26px] font-bold tracking-tight">
-              Westlock
+              The Way
             </span>
             <span className="mt-0.5 block pl-1 text-[10px] font-bold tracking-[0.28em] text-navy/80">
               YOUTH GROUP

@@ -22,7 +22,7 @@ export default function Hero() {
           <div className="absolute left-6 top-[44px] ml-1 text-white sm:top-[88px] lg:left-8 lg:ml-5">
             <h1 className="font-hand leading-none">
               <span className="block text-[52px] font-extrabold tracking-tight drop-shadow-md sm:text-[104px]">
-                Westlock
+                The Way
               </span>
               <span className="mt-2 block text-[24px] font-bold tracking-[0.12em] drop-shadow-md sm:text-[46px]">
                 YOUTH GROUP
