@@ -21,12 +21,12 @@ export default function Footer() {
           <span className="hidden h-px flex-1 bg-navy/20 sm:block" />
         </div>
         <p className="text-center text-[16px] font-semibold text-navy/90">
-          Call Justin @{" "}
+          Call Hailee @{" "}
           <a
-            href="tel:+17803076510"
+            href="tel:+17802830251"
             className="font-bold underline underline-offset-2 transition-colors duration-200 hover:text-navy"
           >
-            780-307-6510
+            780-283-0251
           </a>{" "}
           for any questions about the youth group or the website.
         </p>

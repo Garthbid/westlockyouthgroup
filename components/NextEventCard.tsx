@@ -23,7 +23,7 @@ export default function NextEventCard() {
             <SparkDoodle className="absolute -right-8 -top-1 h-7 w-8 text-doodleorange sm:-right-10" />
           </div>
           <p className="mt-2 text-[16px] font-bold">
-            Friday, April 25&ensp;|&ensp;7:00 PM
+            Friday, September 25&ensp;|&ensp;7:00 PM
           </p>
           <p className="mt-1 text-[15.5px] text-navy/80">
             Meet at Westlock Gospel Chapel

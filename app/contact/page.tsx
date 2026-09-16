@@ -12,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Questions about The Way Youth Group or any of our events? Call Justin any time at 780-307-6510.",
+    "Questions about The Way Youth Group or any of our events? Call Hailee any time at 780-283-0251.",
 };
 
 export default function ContactPage() {
@@ -33,12 +33,12 @@ export default function ContactPage() {
             <Phone className="h-9 w-9 text-navy" strokeWidth={1.9} />
           </div>
 
-          <p className="mt-6 font-hand text-[30px] font-bold">Justin</p>
+          <p className="mt-6 font-hand text-[30px] font-bold">Hailee</p>
           <a
-            href="tel:+17803076510"
+            href="tel:+17802830251"
             className="mt-2 inline-block font-hand text-[34px] font-bold text-navy underline decoration-turquoise decoration-4 underline-offset-8 transition-colors duration-200 hover:text-navy/70 sm:text-[38px]"
           >
-            780-307-6510
+            780-283-0251
           </a>
 
           <p className="mx-auto mt-7 max-w-[380px] text-[16px] leading-[1.7] text-navy/90">
