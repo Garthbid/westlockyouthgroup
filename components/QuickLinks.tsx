@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CalendarDays, Mail, Users, UsersRound } from "lucide-react";
+import { CalendarDays, Mail } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 type QuickLink = {
@@ -13,28 +13,12 @@ type QuickLink = {
 
 const QUICK_LINKS: QuickLink[] = [
   {
-    id: "new-here",
-    href: "#new-here",
-    bg: "bg-mint",
-    icon: Users,
-    title: "New Here?",
-    subtitle: "What to expect",
-  },
-  {
     id: "events",
     href: "#events",
     bg: "bg-pinkpale",
     icon: CalendarDays,
     title: "Upcoming Events",
     subtitle: "See what's on",
-  },
-  {
-    id: "parents",
-    href: "#parents",
-    bg: "bg-bluepale",
-    icon: UsersRound,
-    title: "Parents",
-    subtitle: "Resources & Info",
   },
   {
     id: "contact",
@@ -48,7 +32,7 @@ const QUICK_LINKS: QuickLink[] = [
 
 export default function QuickLinks() {
   return (
-    <section className="mx-auto grid max-w-[1210px] grid-cols-1 gap-6 px-6 pt-20 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+    <section className="mx-auto grid max-w-[820px] grid-cols-1 gap-6 px-6 pt-20 sm:grid-cols-2 lg:px-8">
       {QUICK_LINKS.map((link) => {
         const Icon = link.icon;
         return (
