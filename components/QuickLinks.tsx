@@ -38,7 +38,7 @@ const QUICK_LINKS: QuickLink[] = [
   },
   {
     id: "contact",
-    href: "#contact",
+    href: "/contact",
     bg: "bg-yellowpale",
     icon: Mail,
     title: "Contact Us",

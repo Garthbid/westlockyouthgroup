@@ -9,7 +9,6 @@ const NAV_ITEMS = [
   { label: "Home", href: "/", active: true },
   { label: "About", href: "#about" },
   { label: "Events", href: "#events" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export default function Header() {
@@ -47,10 +46,10 @@ export default function Header() {
         </nav>
 
         <Link
-          href="#join"
+          href="/contact"
           className="hidden items-center gap-1.5 rounded-full bg-peach px-5 py-2.5 text-[13.5px] font-semibold text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md md:inline-flex"
         >
-          Join Us <ArrowRight className="h-4 w-4" strokeWidth={2.2} />
+          Contact Us <ArrowRight className="h-4 w-4" strokeWidth={2.2} />
         </Link>
 
         <button
@@ -78,11 +77,11 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            href="#join"
+            href="/contact"
             onClick={() => setOpen(false)}
             className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-peach px-5 py-2.5 text-[14px] font-semibold"
           >
-            Join Us <ArrowRight className="h-4 w-4" strokeWidth={2.2} />
+            Contact Us <ArrowRight className="h-4 w-4" strokeWidth={2.2} />
           </Link>
         </nav>
       )}
