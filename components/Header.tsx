@@ -9,8 +9,6 @@ const NAV_ITEMS = [
   { label: "Home", href: "/", active: true },
   { label: "About", href: "#about" },
   { label: "Events", href: "#events" },
-  { label: "New Here?", href: "#new-here" },
-  { label: "Parents", href: "#parents" },
   { label: "Contact", href: "#contact" },
 ];
 

@@ -48,7 +48,7 @@ export default function Footer() {
           </p>
           <span className="hidden h-px flex-1 bg-navy/20 sm:block" />
         </div>
-        <p className="text-center text-[13px] text-navy/80">
+        <p className="text-center text-[16px] font-semibold text-navy/90">
           Call Justin @{" "}
           <a
             href="tel:+17803076510"
