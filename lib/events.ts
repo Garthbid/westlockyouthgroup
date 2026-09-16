@@ -35,7 +35,7 @@ export const EVENTS: EventItem[] = [
       "Come with a team name in mind. Bragging rights are on the line, and the losing team buys the fries.",
     ],
     plan: [
-      { time: "6:45", item: "Meet at Westlock Alliance Church" },
+      { time: "6:45", item: "Meet at Westlock Gospel Chapel" },
       { time: "7:00", item: "Roll out to the lanes together" },
       { time: "8:30", item: "Snack break & mini tournament finals" },
       { time: "9:30", item: "Parent pickup at the church" },
@@ -47,7 +47,7 @@ export const EVENTS: EventItem[] = [
     ],
     cost: "$10",
     parentNote:
-      "Drop-off and pickup both happen at Westlock Alliance Church. Leaders drive between venues.",
+      "Drop-off and pickup both happen at Westlock Gospel Chapel. Leaders drive between venues.",
   },
   {
     id: "board-games",
@@ -89,12 +89,12 @@ export const EVENTS: EventItem[] = [
     badgeBg: "bg-mint",
     title: "Youth Movie Night",
     time: "7:00 PM",
-    location: "Location TBA",
+    location: "Westlock Gospel Chapel",
     dateLabel: "Saturday, May 24",
     tagline: "popcorn, blankets & the big screen",
     description: [
       "Big screen, big speakers, and an unreasonable amount of popcorn. We pick a movie everyone can enjoy, pile up the blankets and beanbags, and settle in for the night.",
-      "The location gets announced the week of — keep an eye on our socials or RSVP and we'll text you directly.",
+      "We're taking over Westlock Gospel Chapel for the night — bring a friend and come claim a good spot early.",
     ],
     plan: [
       { time: "7:00", item: "Doors open — claim your spot" },
@@ -108,7 +108,7 @@ export const EVENTS: EventItem[] = [
     ],
     cost: "Free — popcorn's on us",
     parentNote:
-      "Location is announced the week of the event. RSVP and we'll text you the address and pickup details.",
+      "Drop-off and pickup both happen at Westlock Gospel Chapel. We wrap up by 9:30.",
   },
 ];
 

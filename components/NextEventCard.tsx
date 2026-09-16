@@ -26,7 +26,7 @@ export default function NextEventCard() {
             Friday, April 25&ensp;|&ensp;7:00 PM
           </p>
           <p className="mt-1 text-[15.5px] text-navy/80">
-            Meet at Westlock Alliance Church
+            Meet at Westlock Gospel Chapel
           </p>
         </div>
 
