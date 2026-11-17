@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Client } from "pg";
+import { getPermissionFormMeta } from "@/lib/db";
 
 export async function POST(request: Request) {
   const { pin } = await request.json().catch(() => ({ pin: undefined }));
@@ -20,6 +21,7 @@ export async function POST(request: Request) {
         order by created_at asc`,
     );
     return NextResponse.json({
+      permissionForm: await getPermissionFormMeta(),
       rsvps: rows.map((row) => ({
         eventId: row.event_id,
         name: row.name,

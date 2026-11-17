@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { Lock, Phone, Users } from "lucide-react";
 import { EVENTS, type RsvpEntry } from "@/lib/events";
+import type { SiteFileMeta } from "@/lib/db";
+import PermissionFormUploader from "./PermissionFormUploader";
 import { HeartDoodle, SparkDoodle, UnderlineDoodle } from "./Doodles";
 
 const PIN_SESSION_KEY = "wyg-admin-pin";
@@ -13,6 +15,8 @@ export default function AdminRsvpList() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [entries, setEntries] = useState<RsvpEntry[]>([]);
+  const [activePin, setActivePin] = useState("");
+  const [permissionForm, setPermissionForm] = useState<SiteFileMeta | null>(null);
 
   const unlock = useCallback(async (pin: string) => {
     setLoading(true);
@@ -30,6 +34,8 @@ export default function AdminRsvpList() {
       }
       const data = await res.json();
       setEntries(data.rsvps ?? []);
+      setPermissionForm(data.permissionForm ?? null);
+      setActivePin(pin);
       setUnlocked(true);
       sessionStorage.setItem(PIN_SESSION_KEY, pin);
     } catch {
@@ -111,7 +117,11 @@ export default function AdminRsvpList() {
         Everyone who&rsquo;s said they&rsquo;re coming, grouped by event.
       </p>
 
-      <div className="mt-9 flex flex-col gap-8">
+      <div className="mt-9">
+        <PermissionFormUploader pin={activePin} initial={permissionForm} />
+      </div>
+
+      <div className="mt-8 flex flex-col gap-8">
         {EVENTS.map((event) => {
           const eventEntries = entries.filter((r) => r.eventId === event.id);
           return (
