@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Lock, Phone, Users } from "lucide-react";
+import { Copy, Lock, Mail, Users } from "lucide-react";
+import { CONTACT, mailtoEveryone } from "@/lib/site";
 import { EVENTS, type RsvpEntry } from "@/lib/events";
 import type { SiteFileMeta } from "@/lib/db";
 import PermissionFormUploader from "./PermissionFormUploader";
@@ -129,7 +130,16 @@ export default function AdminRsvpList() {
       <p className="mt-3 max-w-[520px] text-[14px] leading-[1.6] text-navy/70">
         Everyone who&rsquo;s said they&rsquo;re coming, grouped by event.
       </p>
-
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <EmailGroupButtons
+          emails={entries.map((r) => r.parentEmail ?? "")}
+          subject="The Way Youth Group — upcoming events"
+          label="EMAIL EVERYONE WHO RSVP'D"
+        />
+        <span className="text-[12.5px] text-navy/60">
+          Opens your mail app from {CONTACT.email} with every parent in BCC.
+        </span>
+      </div>
       </div>
 
       <div className="mt-9">
@@ -169,6 +179,11 @@ export default function AdminRsvpList() {
                   <Users className="h-3.5 w-3.5" strokeWidth={2.4} />
                   {eventEntries.length} going
                 </span>
+                <EmailGroupButtons
+                  emails={eventEntries.map((r) => r.parentEmail ?? "")}
+                  subject={`${event.title} — ${event.dateLabel}`}
+                  label="EMAIL THIS GROUP"
+                />
               </div>
 
               {eventEntries.length === 0 ? (
@@ -180,15 +195,12 @@ export default function AdminRsvpList() {
                   <table className="w-full min-w-[560px] text-left">
                     <thead>
                       <tr className="text-[11.5px] font-bold tracking-[0.14em] text-navy/55">
-                        <th className="pb-2.5 pr-4 font-bold">NAME</th>
-                        <th className="pb-2.5 pr-4 font-bold">PHONE</th>
+                        <th className="pb-2.5 pr-4 font-bold">CHILD</th>
                         <th className="pb-2.5 pr-4 font-bold">PARENT</th>
                         <th className="pb-2.5 pr-4 font-bold">
-                          PARENT&rsquo;S PHONE
+                          PARENT&rsquo;S EMAIL
                         </th>
-                        <th className="pb-2.5 font-bold">
-                          ALLERGIES / HEALTH
-                        </th>
+                        <th className="pb-2.5 font-bold">OTHER</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -200,15 +212,22 @@ export default function AdminRsvpList() {
                           <td className="py-3 pr-4 font-bold">
                             {entry.name || "—"}
                           </td>
-                          <td className="py-3 pr-4">
-                            <span className="inline-flex items-center gap-1.5">
-                              <Phone className="h-3.5 w-3.5 opacity-60" strokeWidth={2} />
-                              {entry.phone || "—"}
-                            </span>
-                          </td>
                           <td className="py-3 pr-4">{entry.parentName || "—"}</td>
-                          <td className="py-3 pr-4">{entry.parentPhone || "—"}</td>
-                          <td className="py-3">{entry.allergies || "—"}</td>
+                          <td className="py-3 pr-4">
+                            {entry.parentEmail ? (
+                              <a href={`mailto:${entry.parentEmail}`} className="inline-flex items-center gap-1.5 underline decoration-navy/25 underline-offset-[3px] hover:decoration-navy">
+                                <Mail className="h-3.5 w-3.5 opacity-60" strokeWidth={2} />
+                                {entry.parentEmail}
+                              </a>
+                            ) : (
+                              "—"
+                            )}
+                          </td>
+                          <td className="py-3 text-[13px] text-navy/70">
+                            {[entry.parentPhone && `parent ${entry.parentPhone}`, entry.phone && `child ${entry.phone}`, entry.allergies]
+                              .filter(Boolean)
+                              .join(" · ") || "—"}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -224,5 +243,47 @@ export default function AdminRsvpList() {
         good work, leader <HeartDoodle className="h-4 w-4" strokeWidth={3.2} />
       </p>
     </section>
+  );
+}
+
+function EmailGroupButtons({
+  emails,
+  subject,
+  label,
+}: {
+  emails: string[];
+  subject: string;
+  label: string;
+}) {
+  const [copied, setCopied] = useState(false);
+  const unique = Array.from(
+    new Set(emails.map((e) => e.trim().toLowerCase()).filter(Boolean)),
+  );
+  if (unique.length === 0) return null;
+  return (
+    <span className="inline-flex items-center gap-2">
+      <a
+        href={mailtoEveryone(unique, subject)}
+        className="inline-flex items-center gap-1.5 rounded-full bg-peach px-4 py-1.5 text-[12px] font-bold tracking-[0.06em] text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow"
+      >
+        <Mail className="h-3.5 w-3.5" strokeWidth={2.4} /> {label} ({unique.length})
+      </a>
+      <button
+        type="button"
+        onClick={async () => {
+          try {
+            await navigator.clipboard.writeText(unique.join(", "));
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1500);
+          } catch {
+            window.prompt("Copy these addresses:", unique.join(", "));
+          }
+        }}
+        className="inline-flex items-center gap-1 text-[12px] font-bold tracking-[0.06em] text-navy/70 hover:text-navy"
+        title="Copy addresses"
+      >
+        <Copy className="h-3.5 w-3.5" strokeWidth={2.4} /> {copied ? "COPIED" : "COPY"}
+      </button>
+    </span>
   );
 }

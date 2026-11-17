@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, CalendarDays, Clock, MapPin } from "lucide-react";
+import { AlertCircle, ArrowLeft, CalendarDays, Clock, Download, FileSignature, MapPin } from "lucide-react";
 import type { EventItem } from "@/lib/events";
 import RsvpCta from "./RsvpCta";
 import {
@@ -130,6 +130,24 @@ export default function EventDetails({ event }: { event: EventItem }) {
 
           <div className="mt-7">
             <RsvpCta eventId={event.id} />
+          </div>
+
+          <div className="mt-6 rounded-[16px] border-2 border-peach/70 bg-yellowpale/40 px-4 py-3.5">
+            <p className="flex items-start gap-2 text-[13.5px] font-bold leading-snug">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-[#d1495b]" strokeWidth={2.4} />
+              Permission form required
+            </p>
+            <p className="mt-1 pl-6 text-[13px] leading-[1.55] text-navy/80">
+              A permission form must be fully completed and handed in before your child can attend. One form covers the year.
+            </p>
+            <div className="mt-2.5 flex flex-col gap-1.5 pl-6 text-[12.5px] font-bold tracking-[0.04em]">
+              <Link href="/permission-form" className="inline-flex items-center gap-1.5 underline decoration-navy/30 underline-offset-[3px] hover:decoration-navy">
+                <FileSignature className="h-3.5 w-3.5" strokeWidth={2.4} /> Fill it out online
+              </Link>
+              <a href="/permission-form/pdf" target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 underline decoration-navy/30 underline-offset-[3px] hover:decoration-navy">
+                <Download className="h-3.5 w-3.5" strokeWidth={2.4} /> Download the PDF to print
+              </a>
+            </div>
           </div>
           <p className="mt-3.5 flex items-center justify-center gap-2 text-center font-script text-[19px] font-semibold text-navy/80">
             hope you can make it

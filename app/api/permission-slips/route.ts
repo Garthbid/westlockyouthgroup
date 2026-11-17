@@ -45,7 +45,7 @@ export async function POST(request: Request) {
   } catch (err) {
     if (isMissingTable(err)) {
       return NextResponse.json(
-        { error: "The form isn't quite ready yet — please try again later or call Hailee at 780-283-0251." },
+        { error: "The form isn't quite ready yet — please try again later or call Hailee Rogers at 780-283-0251." },
         { status: 503 },
       );
     }

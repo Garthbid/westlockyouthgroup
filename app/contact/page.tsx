@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
+import { CONTACT } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import {
@@ -12,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Questions about The Way Youth Group or any of our events? Call Hailee any time at 780-283-0251.",
+    "Questions about The Way Youth Group or any of our events? Call or text Hailee Rogers at 780-283-0251, or email westlockyouthgroup@hotmail.com.",
 };
 
 export default function ContactPage() {
@@ -33,17 +34,34 @@ export default function ContactPage() {
             <Phone className="h-9 w-9 text-navy" strokeWidth={1.9} />
           </div>
 
-          <p className="mt-6 font-hand text-[30px] font-bold">Hailee</p>
+          <p className="mt-6 font-hand text-[30px] font-bold">{CONTACT.name}</p>
+          <p className="text-[12.5px] font-bold tracking-[0.18em] text-navy/55">YOUTH GROUP LEADER</p>
           <a
-            href="tel:+17802830251"
-            className="mt-2 inline-block font-hand text-[34px] font-bold text-navy underline decoration-turquoise decoration-4 underline-offset-8 transition-colors duration-200 hover:text-navy/70 sm:text-[38px]"
+            href={CONTACT.phoneHref}
+            className="mt-3 inline-block font-hand text-[34px] font-bold text-navy underline decoration-turquoise decoration-4 underline-offset-8 transition-colors duration-200 hover:text-navy/70 sm:text-[38px]"
           >
-            780-283-0251
+            {CONTACT.phone}
           </a>
 
-          <p className="mx-auto mt-7 max-w-[380px] text-[16px] leading-[1.7] text-navy/90">
-            Call any time with any questions about the youth group or any of
-            the events.
+          <div className="mx-auto mt-8 flex max-w-[400px] items-center gap-3 rounded-[18px] bg-ivory px-5 py-4 text-left">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-bluepale">
+              <Mail className="h-5 w-5 text-navy" strokeWidth={2} />
+            </span>
+            <span className="min-w-0">
+              <span className="block text-[11.5px] font-bold tracking-[0.16em] text-navy/55">EMAIL</span>
+              <a
+                href={CONTACT.emailHref}
+                className="block truncate text-[16px] font-bold underline decoration-navy/30 underline-offset-[3px] hover:decoration-navy"
+              >
+                {CONTACT.email}
+              </a>
+            </span>
+          </div>
+
+          <p className="mx-auto mt-6 max-w-[400px] text-[15.5px] leading-[1.7] text-navy/90">
+            Call, text or email any time with questions about the youth group, an
+            event, RSVPs or permission forms. Signed permission forms can be emailed
+            here too.
           </p>
 
           <p className="mt-6 flex items-center justify-center gap-2 font-script text-[22px] font-semibold text-navy/80">

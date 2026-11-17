@@ -19,7 +19,7 @@ export async function GET() {
 
   if (!row) {
     return new NextResponse(
-      "The permission form hasn't been uploaded yet. Please check back soon or call Hailee at 780-283-0251.",
+      "The permission form hasn't been uploaded yet. Please check back soon or call Hailee Rogers at 780-283-0251.",
       { status: 404, headers: { "Content-Type": "text/plain; charset=utf-8" } },
     );
   }

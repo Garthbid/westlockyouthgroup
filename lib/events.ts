@@ -37,7 +37,9 @@ export const EVENTS: EventItem[] = [
     plan: [
       { time: "7:00", item: "Meet at Westlock Gospel Chapel — teams get picked" },
       { time: "7:15", item: "Puck drops — games start" },
-      { time: "8:15", item: "Hot dogs & hot chocolate break, then back at it" },
+      { time: "8:15", item: "Hot dogs & hot chocolate break" },
+      { time: "8:30", item: "Devotional — a short talk & time to think" },
+      { time: "8:45", item: "Back out for the last games" },
       { time: "9:00", item: "Parent pickup at the church" },
     ],
     bring: [
@@ -69,6 +71,8 @@ export const EVENTS: EventItem[] = [
       { time: "7:00", item: "Doors open at the Rotary Spirit Centre field house" },
       { time: "7:15", item: "Dodgeball to kick things off" },
       { time: "7:45", item: "Open courts — badminton, basketball, volleyball & more" },
+      { time: "8:30", item: "Devotional — a short talk & time to think" },
+      { time: "8:45", item: "Snacks & last games" },
       { time: "9:00", item: "Parent pickup" },
     ],
     bring: [
@@ -78,7 +82,7 @@ export const EVENTS: EventItem[] = [
     ],
     cost: "Free — snacks & drinks on us",
     parentNote:
-      "Drop-off and pickup both happen at the Westlock Rotary Spirit Centre (Field House), not the church. Snacks are provided — let us know about allergies when you RSVP.",
+      "Drop-off and pickup both happen at the Westlock Rotary Spirit Centre (Field House), not the church. Snacks are provided — allergies go on the permission form so leaders have them on hand.",
   },
 ];
 
@@ -92,6 +96,7 @@ export type RsvpEntry = {
   phone: string;
   parentName: string;
   parentPhone: string;
+  parentEmail?: string;
   allergies?: string;
 };
 

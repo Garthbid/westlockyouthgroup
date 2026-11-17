@@ -7,7 +7,7 @@ const supabase = createClient(
 );
 
 export async function saveRsvp(entry: RsvpEntry): Promise<boolean> {
-  const { error } = await supabase.from("rsvps").insert({
+  const row = {
     ...(entry.id ? { id: entry.id } : {}),
     event_id: entry.eventId,
     name: entry.name,
@@ -15,7 +15,16 @@ export async function saveRsvp(entry: RsvpEntry): Promise<boolean> {
     parent_name: entry.parentName,
     parent_phone: entry.parentPhone,
     allergies: entry.allergies ?? "",
-  });
+  };
+  const email = entry.parentEmail ?? "";
+  let { error } = await supabase.from("rsvps").insert({ ...row, parent_email: email });
+  if (error && /parent_email/.test(error.message)) {
+    // Column migration not applied yet — don't lose the RSVP or the email.
+    ({ error } = await supabase.from("rsvps").insert({
+      ...row,
+      allergies: [row.allergies, email && `email: ${email}`].filter(Boolean).join(" · "),
+    }));
+  }
   if (error) {
     console.warn("Failed to save RSVP:", error.message);
     return false;

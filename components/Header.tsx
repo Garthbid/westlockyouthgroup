@@ -7,8 +7,8 @@ import { SunDoodle } from "./Doodles";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/", active: true },
-  { label: "About", href: "#about" },
-  { label: "Events", href: "#events" },
+  { label: "About", href: "/#about" },
+  { label: "Events", href: "/#events" },
 ];
 
 export default function Header() {

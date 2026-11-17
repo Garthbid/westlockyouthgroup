@@ -1,4 +1,5 @@
 import { HeartDoodle } from "./Doodles";
+import { CONTACT } from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -21,14 +22,23 @@ export default function Footer() {
           <span className="hidden h-px flex-1 bg-navy/20 sm:block" />
         </div>
         <p className="text-center text-[16px] font-semibold text-navy/90">
-          Call Hailee @{" "}
+          Call or text {CONTACT.name} @{" "}
           <a
-            href="tel:+17802830251"
+            href={CONTACT.phoneHref}
             className="font-bold underline underline-offset-2 transition-colors duration-200 hover:text-navy"
           >
-            780-283-0251
+            {CONTACT.phone}
           </a>{" "}
-          for any questions about the youth group or the website.
+          or email{" "}
+          <a
+            href={CONTACT.emailHref}
+            className="font-bold underline underline-offset-2 transition-colors duration-200 hover:text-navy"
+          >
+            {CONTACT.email}
+          </a>
+        </p>
+        <p className="-mt-1 text-center text-[13px] text-navy/65">
+          RSVPs, permission forms, questions about the youth group or the website — we&rsquo;d love to hear from you.
         </p>
       </div>
     </footer>
