@@ -18,15 +18,15 @@ export default function NextEventCard() {
           </p>
           <div className="relative mt-0.5 inline-block">
             <h2 className="font-hand text-[36px] font-bold leading-tight sm:text-[42px]">
-              Youth Bowling Night
+              Street Hockey Night
             </h2>
             <SparkDoodle className="absolute -right-8 -top-1 h-7 w-8 text-doodleorange sm:-right-10" />
           </div>
           <p className="mt-2 text-[16px] font-bold">
-            Friday, September 25&ensp;|&ensp;7:00 PM
+            Friday, November 20&ensp;|&ensp;7:00 – 9:00 PM
           </p>
           <p className="mt-1 text-[15.5px] text-navy/80">
-            Meet at Westlock Gospel Chapel
+            Westlock Gospel Chapel &middot; during Light Up Night
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export default function NextEventCard() {
 
         {/* CTA */}
         <Link
-          href="/rsvp?event=bowling"
+          href="/rsvp?event=street-hockey"
           className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-peach px-10 py-[18px] text-[14px] font-bold tracking-[0.08em] text-navy transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md lg:self-center"
         >
           RSVP NOW <ArrowRight className="h-4 w-4" strokeWidth={2.4} />

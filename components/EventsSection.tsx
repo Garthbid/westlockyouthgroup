@@ -22,7 +22,7 @@ export default function EventsSection() {
         </Link>
       </div>
 
-      <div className="mt-7 grid grid-cols-1 gap-7 sm:grid-cols-3">
+      <div className={`mt-7 grid grid-cols-1 gap-7 ${EVENTS.length >= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
         {EVENTS.map((event) => (
           <EventCard key={event.id} event={event} />
         ))}
