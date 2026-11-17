@@ -5,9 +5,9 @@ const fs = require("fs");
 const path = require("path");
 const { Client } = require("pg");
 
-const file = process.argv[2];
-if (!file) {
-  console.error("Usage: node scripts/db-migrate.cjs <migration.sql>");
+const files = process.argv.slice(2);
+if (files.length === 0) {
+  console.error("Usage: node scripts/db-migrate.cjs <migration.sql> [more.sql ...]");
   process.exit(1);
 }
 const envPath = path.join(__dirname, "..", ".env.local");
@@ -25,13 +25,14 @@ if (!env.DATABASE_URL) {
   console.error("DATABASE_URL missing from .env.local");
   process.exit(1);
 }
-const sql = fs.readFileSync(file, "utf8");
 const client = new Client({ connectionString: env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
 (async () => {
   await client.connect();
   try {
-    await client.query(sql);
-    console.log(`Applied ${path.basename(file)}`);
+    for (const file of files) {
+      await client.query(fs.readFileSync(file, "utf8"));
+      console.log(`Applied ${path.basename(file)}`);
+    }
   } finally {
     await client.end();
   }

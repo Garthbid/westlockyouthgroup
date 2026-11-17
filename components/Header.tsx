@@ -15,7 +15,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-ivory">
+    <header className="bg-ivory print:hidden">
       <div className="mx-auto flex h-[72px] max-w-[1210px] items-center justify-between px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-1.5">
           <SunDoodle className="h-8 w-8 shrink-0 text-[#f2b84b]" strokeWidth={2.8} />

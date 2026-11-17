@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="mx-auto flex max-w-[1210px] flex-col items-center gap-6 px-6 pb-12 pt-16 sm:flex-row sm:gap-0 lg:px-8"
+      className="mx-auto flex max-w-[1210px] flex-col items-center gap-6 px-6 pb-12 pt-16 sm:flex-row sm:gap-0 lg:px-8 print:hidden"
     >
       <div className="font-script text-[20px] font-semibold leading-[1.05]">
         <span className="block rotate-[-6deg]">Better</span>

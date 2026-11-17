@@ -62,7 +62,7 @@ export default function PermissionFormUploader({ pin, initial }: Props) {
 
   async function remove() {
     if (!file) return;
-    if (!window.confirm("Remove the permission form? The link on the site will stop working until you upload a new one.")) {
+    if (!window.confirm("Remove the PDF? The download link will show a \"check back soon\" note until you upload a new one.")) {
       return;
     }
     setBusy(true);
@@ -91,9 +91,9 @@ export default function PermissionFormUploader({ pin, initial }: Props) {
           <FileText className="h-6 w-6" strokeWidth={1.9} />
         </div>
         <div className="min-w-0 flex-1">
-          <h2 className="text-[20px] font-bold">Permission Form</h2>
+          <h2 className="text-[20px] font-bold">Paper Permission Form (PDF)</h2>
           <p className="text-[13.5px] text-navy/70">
-            The PDF behind &ldquo;Access Permission Form&rdquo; on every event card.
+            The &ldquo;download the PDF&rdquo; copy offered on the online form, for families who prefer paper.
           </p>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function PermissionFormUploader({ pin, initial }: Props) {
               </span>
             </span>
             <a
-              href="/permission-form"
+              href="/permission-form/pdf"
               target="_blank"
               rel="noopener"
               className="inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.06em] text-navy/80 hover:text-navy"
@@ -126,7 +126,7 @@ export default function PermissionFormUploader({ pin, initial }: Props) {
           </div>
         ) : (
           <span className="text-navy/70">
-            No form uploaded yet — the link on the site shows a &ldquo;check back soon&rdquo; note until you add one.
+            No PDF uploaded yet — the download link shows a &ldquo;check back soon&rdquo; note until you add one.
           </span>
         )}
       </div>

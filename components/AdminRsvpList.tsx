@@ -5,6 +5,8 @@ import { Lock, Phone, Users } from "lucide-react";
 import { EVENTS, type RsvpEntry } from "@/lib/events";
 import type { SiteFileMeta } from "@/lib/db";
 import PermissionFormUploader from "./PermissionFormUploader";
+import PermissionSlipsAdmin from "./PermissionSlipsAdmin";
+import type { SlipSubmission } from "@/lib/permissionSlip";
 import { HeartDoodle, SparkDoodle, UnderlineDoodle } from "./Doodles";
 
 const PIN_SESSION_KEY = "wyg-admin-pin";
@@ -17,6 +19,8 @@ export default function AdminRsvpList() {
   const [entries, setEntries] = useState<RsvpEntry[]>([]);
   const [activePin, setActivePin] = useState("");
   const [permissionForm, setPermissionForm] = useState<SiteFileMeta | null>(null);
+  const [slips, setSlips] = useState<SlipSubmission[]>([]);
+  const [slipsNotReady, setSlipsNotReady] = useState(false);
 
   const unlock = useCallback(async (pin: string) => {
     setLoading(true);
@@ -33,6 +37,14 @@ export default function AdminRsvpList() {
         return;
       }
       const data = await res.json();
+      const slipRes = await fetch("/api/admin/permission-slips", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pin }),
+      });
+      const slipData = slipRes.ok ? await slipRes.json() : { slips: [] };
+      setSlips(slipData.slips ?? []);
+      setSlipsNotReady(Boolean(slipData.notReady));
       setEntries(data.rsvps ?? []);
       setPermissionForm(data.permissionForm ?? null);
       setActivePin(pin);
@@ -103,6 +115,7 @@ export default function AdminRsvpList() {
 
   return (
     <section className="mx-auto w-full max-w-[1080px] px-6 pb-20 pt-10 lg:px-8">
+      <div className="print:hidden">
       <p className="text-[12px] font-bold tracking-[0.22em] text-navy/60">
         ADMIN
       </p>
@@ -117,11 +130,17 @@ export default function AdminRsvpList() {
         Everyone who&rsquo;s said they&rsquo;re coming, grouped by event.
       </p>
 
+      </div>
+
       <div className="mt-9">
+        <PermissionSlipsAdmin pin={activePin} initial={slips} notReady={slipsNotReady} />
+      </div>
+
+      <div className="mt-8 print:hidden">
         <PermissionFormUploader pin={activePin} initial={permissionForm} />
       </div>
 
-      <div className="mt-8 flex flex-col gap-8">
+      <div className="mt-8 flex flex-col gap-8 print:hidden">
         {EVENTS.map((event) => {
           const eventEntries = entries.filter((r) => r.eventId === event.id);
           return (

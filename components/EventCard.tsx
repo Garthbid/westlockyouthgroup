@@ -48,15 +48,13 @@ export default function EventCard({ event }: { event: EventItem }) {
         <p className="mt-1 text-[14.5px] text-navy/80">
           {event.time}&ensp;|&ensp;{event.location}
         </p>
-        <a
+        <Link
           href="/permission-form"
-          target="_blank"
-          rel="noopener"
           className="mt-1.5 inline-flex items-center gap-1 text-[12px] font-bold tracking-[0.04em] text-navy/60 underline decoration-navy/25 underline-offset-[3px] transition-colors duration-200 hover:text-navy hover:decoration-navy/60"
         >
           <FileText className="h-3.5 w-3.5" strokeWidth={2.2} />
           Access Permission Form
-        </a>
+        </Link>
         <div className="mt-3.5 flex items-center gap-2.5">
           <Link
             href={`/events/${event.id}`}

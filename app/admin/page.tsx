@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Admin",
-  description: "RSVP lists for upcoming events.",
+  description: "RSVP lists, signed permission slips and the paper form.",
   robots: { index: false, follow: false },
 };
 
